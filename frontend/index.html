@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NBA-Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+
+</head>
+
+<body>
+
+    <div class="container"></div>
+    <div id="search">
+        <input type="text" id="teamName" placeholder="Team Name" aria-label="teamName">
+        <input type="text" id="year" placeholder="Year" aria-label="year">
+        <button class="getTeam-btn">GET TEAM</button>
+        <div class="check-bday">
+            <input class="checkbox" type="checkbox" name="bday" id="bday">
+            <label for="bday" id="bday-label">Show Only Players with Birth dates</label>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div id="results"></div>
+
+    <script id="player-template" type="text/x-handlebars-template">
+    <div class="players">
+        {{#each player}}
+            
+        <div class="player">
+            <div class="name label">{{firstName}} {{lastName}}</div>
+            <div class="jersey label">{{jerseyNumber}}</div>
+            <div class="player-pic-container"><img src="{{image}}" onerror="if (this.src != '/static/placeholder.png') this.src = '/static/placeholder.png';"
+                    class="player-pic">
+            </div>
+            <div class="position label">{{position}}</div>
+        </div>
+        {{/each}}
+
+    </div>
+
+</script>
+
+
+    <script src="jquery-3.6.0.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+    <script src="player.js"></script>
+    <script src="Model.js"></script>
+    <script src="render.js"></script>
+    <script src="controller.js"></script>
+
+
+</body>
+
+</html>
