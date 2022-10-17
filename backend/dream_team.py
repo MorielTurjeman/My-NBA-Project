@@ -1,4 +1,3 @@
-from copyreg import constructor
 
 
 class Dream_team:
@@ -6,6 +5,9 @@ class Dream_team:
         self.dream_team = []
 
     def add_player(self, player):
+        if player in self.dream_team:
+            return player
+
         self.dream_team.append(player)
         return player
 

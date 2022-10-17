@@ -1,5 +1,5 @@
 class Player {
-    constructor(readonly id: string, readonly lastName: string, readonly firstName: string, readonly picture: string, readonly jerseyNumber: string, readonly position: string, readonly dateOfBirthUTC?: string) {
+    constructor(readonly id: string, readonly lastname: string, readonly firstname: string, readonly image: string, readonly jersey: string, readonly position: string, readonly birthday?: string) {
         // this.id = id
         // this.name = name
         // this.picture = picture

@@ -57,3 +57,16 @@ body {
 #bday-label {
     color: black;
 }
+
+.btn-group {
+    padding: 10px 24px;
+    width: 100%;
+    cursor: pointer;
+
+
+}
+
+.btn-stats {
+    margin-left: auto;
+
+}

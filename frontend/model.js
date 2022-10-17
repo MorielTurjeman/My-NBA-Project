@@ -11,18 +11,54 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 class Model {
     getPlayers(teamName, year, filterByBirthday) {
         return __awaiter(this, void 0, void 0, function* () {
-            // const response = await axios.default.get<Player[]>(`http://localhost:8080/${teamName}/${year}`)
-            const team = yield $.get(`http://localhost:8080/${teamName}/${year}`);
-            if (filterByBirthday) {
-                const res = team.filter(p => p.dateOfBirthUTC !== "");
-                return res;
+            try {
+                const team = yield $.get(`/${teamName}/${year}`);
+                if (filterByBirthday) {
+                    const res = team.filter(p => p.birthday !== "");
+                    return res;
+                }
+                else
+                    return team;
             }
-            else
-                return team;
+            catch (err) {
+                console.log(err);
+                return [];
+            }
         });
     }
     addPlayerToDreamTeam(player) {
         return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const addPlayer = yield $.post('/dreamTeam', JSON.stringify(player));
+                console.log(addPlayer);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+    }
+    getPlayerStats(firstName, lastName) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const playerStats = yield $.get(`/players/${lastName}/${firstName}`);
+                return playerStats;
+            }
+            catch (err) {
+                console.log(err);
+                return;
+            }
+        });
+    }
+    getDreamTeam() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const dreamTeam = yield $.get(`/dreamTeam`);
+                return dreamTeam;
+            }
+            catch (err) {
+                console.log(err);
+                return [];
+            }
         });
     }
 }

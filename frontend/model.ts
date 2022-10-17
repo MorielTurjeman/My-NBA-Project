@@ -1,20 +1,61 @@
 class Model {
     async getPlayers(teamName: string, year: string, filterByBirthday: boolean) {
-        // const response = await axios.default.get<Player[]>(`http://localhost:8080/${teamName}/${year}`)
-        const team = await $.get(`http://localhost:8080/${teamName}/${year}`)
-        if (filterByBirthday) {
-            const res = (<Player[]>team).filter(p => p.dateOfBirthUTC !== "")
-            return res
+        try {
+            const team = await $.get(`/${teamName}/${year}`)
+            if (filterByBirthday) {
+                const res = (<Player[]>team).filter(p => p.birthday !== "")
+                return res
+
+            }
+
+            else return <Player[]>team
+
 
         }
-
-        else return <Player[]>team
+        catch (err) {
+            console.log(err)
+            return []
+        }
 
     }
 
     async addPlayerToDreamTeam(player: Player) {
+        try {
+            const addPlayer = await $.post('/dreamTeam', JSON.stringify(player))
+            console.log(addPlayer)
+        }
+        catch (err) {
+            console.log(err)
+        }
 
     }
+
+    async getPlayerStats(firstName: string, lastName: string) {
+        try {
+            const playerStats = await $.get(`/players/${lastName}/${firstName}`)
+            return <playerStats>playerStats
+
+        }
+        catch (err) {
+            console.log(err)
+            return
+        }
+    }
+
+    async getDreamTeam() {
+        try {
+            const dreamTeam = await $.get(`/dreamTeam`)
+            return <Player[]>dreamTeam
+
+
+        }
+        catch (err) {
+            console.log(err)
+            return []
+        }
+
+    }
+
 
 
 

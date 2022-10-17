@@ -30,22 +30,21 @@ def teamName_to_id(teamName):
         return None
 
 
-def filter_by_team(teamName, is_active, data):
+def filter_by_team(teamName, data):
     team_id = teamName_to_id(teamName)
     players = []
     for league in data['league']:
         res = [
             {
                 "id": player["personId"],
-                "lastName": player["lastName"],
-                "firstName": player["firstName"],
+                "lastname": player["lastName"],
+                "firstname": player["firstName"],
                 "image": f"https://nba-players.herokuapp.com/players/{player['lastName'].lower()}/{player['firstName'].lower()}",
-                "jersey_number": player['jersey'],
+                "jersey": player['jersey'],
                 "position": player['pos'],
-                "is_active": player['isActive'],
-                "dateOfBirthUTC": player["dateOfBirthUTC"]
+                "birthday": player["dateOfBirthUTC"]
             }
-            for player in data['league'][league] if team_id == player['teamId'] and player["isActive"] == is_active
+            for player in data['league'][league] if team_id == player['teamId']
         ]
 
         players += res
@@ -53,11 +52,10 @@ def filter_by_team(teamName, is_active, data):
 
 
 @ app.get('/{teamName}/{year}/')
-async def get_teams_by_year(teamName, year, is_active="True"):
-    active = json.loads(is_active.lower())
+async def get_teams_by_year(teamName, year):
     res = requests.get(
         'http://data.nba.net/10s/prod/v1/{}/players.json'.format(year))
-    return filter_by_team(teamName, active, res.json())
+    return filter_by_team(teamName, res.json())
 
 
 @app.get('/dreamTeam')
@@ -79,11 +77,11 @@ async def delete_player(id):
     dream_team.delete_player(id)
 
 
-@app.get('/players/{lastName}/{firstName}')
-async def get_player_stats(lastName, firstName):
+@app.get('/players/{lastname}/{firstname}')
+async def get_player_stats(lastname, firstname):
     res = requests.get(
-        f"https://nba-players.herokuapp.com/players-stats/{lastName}/{firstName}")
-    stats = Player_stats(firstName, lastName, res.json())
+        f"https://nba-players.herokuapp.com/players-stats/{lastname}/{firstname}")
+    stats = Player_stats(firstname, lastname, res.json())
     print(stats)
     return stats
 

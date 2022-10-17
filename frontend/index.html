@@ -2,58 +2,98 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NBA-Project</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>NBA-Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
 </head>
 
 <body>
 
-    <div class="container"></div>
-    <div id="search">
-        <input type="text" id="teamName" placeholder="Team Name" aria-label="teamName">
-        <input type="text" id="year" placeholder="Year" aria-label="year">
-        <button class="getTeam-btn">GET TEAM</button>
-        <div class="check-bday">
-            <input class="checkbox" type="checkbox" name="bday" id="bday">
-            <label for="bday" id="bday-label">Show Only Players with Birth dates</label>
-        </div>
+  <div class="container"></div>
+  <div id="search">
+    <input type="text" id="teamName" placeholder="Team Name" aria-label="teamName">
+    <input type="text" id="year" placeholder="Year" aria-label="year">
+    <button class="getTeam-btn">GET TEAM</button>
+    <div class="check-bday">
+      <input class="checkbox" type="checkbox" name="bday" id="bday">
+      <label for="bday" id="bday-label">Show Only Players with Birth dates</label>
+      <button id="showDreamTeam">Show Dream Team</button>
     </div>
-    </div>
-    </div>
+  </div>
+  </div>
+  </div>
 
-    <div id="results"></div>
+  <div id="results"></div>
 
-    <script id="player-template" type="text/x-handlebars-template">
+  <script id="player-template" type="text/x-handlebars-template">
     <div class="players">
         {{#each player}}
             
-        <div class="player">
-            <div class="name label">{{firstName}} {{lastName}}</div>
-            <div class="jersey label">{{jerseyNumber}}</div>
+        <div class="player" data-id="{{id}}" data-firstname="{{firstname}}" data-lastname="{{lastname}}" data-jersey="{{jersey}}" data-image="{{image}}"  data-position="{{position}}" data-birthday="{{birthday}}">
+            <div class="name label">{{firstname}} {{lastname}}</div>
+            <div class="jersey label">{{jersey}}</div>
             <div class="player-pic-container"><img src="{{image}}" onerror="if (this.src != '/static/placeholder.png') this.src = '/static/placeholder.png';"
                     class="player-pic">
             </div>
             <div class="position label">{{position}}</div>
+            <div class="btn-group">
+            <button class="addToDreamTeam">Dream Team</button>
+            <button class="btn-delete">Delete From Dream Team</button>
+            <button class="btn-stats" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-info-circle fa-2x" aria-hidden="true" ></i></button>
+            
+        </div>
         </div>
         {{/each}}
+      </script>
 
+
+
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <script id="player-stats-template" type="text/x-handlebars-template">
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="staticBackdropLabel">{{first_name}} {{last_name}} Stats: </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="stats">
+            <div class="gamesPlayed label">Games Played: {{games_played}}</div>
+            <div class="minutesPerGame label">Minutes Per Game: {{minutes_per_game}}</div>
+            <div class="pointsPerGame label">Points Per Game: {{points_per_game}}</div>
+            <div class="reboundsPerGame label"> Rebounds Per Game: {{rebounds_per_game}}</div>
+            <div class="playerEfficiencyRating label"> Player Efficiency Rating: {{player_efficiency_rating}}</div>
+          </div>
+        </div>
+      </script>
+
+
+      </div>
     </div>
+  </div>
 
-</script>
+  </div>
 
 
-    <script src="jquery-3.6.0.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
-    <script src="player.js"></script>
-    <script src="Model.js"></script>
-    <script src="render.js"></script>
-    <script src="controller.js"></script>
+
+  <script src="jquery-3.6.0.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+  <script src="player.js"></script>
+  <script src="Model.js"></script>
+  <script src="render.js"></script>
+  <script src="controller.js"></script>
 
 
 </body>
