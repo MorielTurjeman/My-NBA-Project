@@ -17,11 +17,6 @@ dream_team = Dream_team()
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 
-@app.get('/sanity')
-async def get_sanity():
-    return "Server is up and running smoothly"
-
-
 def teamName_to_id(teamName):
     for name in teams_id:
         if name == teamName:
@@ -52,33 +47,33 @@ def filter_by_team(teamName, data):
     return players
 
 
-@ app.get('/{teamName}/{year}/')
+@ app.get('/{teamName}/{year}/', status_code=200)
 async def get_teams_by_year(teamName, year):
     res = requests.get(
         'http://data.nba.net/10s/prod/v1/{}/players.json'.format(year))
     return filter_by_team(teamName, res.json())
 
 
-@app.get('/dreamTeam')
+@app.get('/dreamTeam', status_code=200)
 async def get_dream_team():
     global dream_team
     return dream_team.get_dream_team()
 
 
-@app.post('/dreamTeam')
+@app.post('/dreamTeam', status_code=201)
 async def add_to_dream_team(request: Request):
     global dream_team
     res = await request.json()
     return dream_team.add_player(res)
 
 
-@app.delete('/dreamTeam/{id}')
+@app.delete('/dreamTeam/{id}', status_code=204)
 async def delete_player(id):
     global dream_team
     dream_team.delete_player(id)
 
 
-@app.get('/players/{lastname}/{firstname}')
+@app.get('/players/{lastname}/{firstname}', status_code=200)
 async def get_player_stats(lastname, firstname):
     res = requests.get(
         f"https://nba-players.herokuapp.com/players-stats/{lastname}/{firstname}")
