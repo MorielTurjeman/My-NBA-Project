@@ -34,7 +34,7 @@
     <div class="players">
         {{#each player}}
             
-        <div class="player" data-id="{{id}}" data-firstname="{{firstname}}" data-lastname="{{lastname}}" data-jersey="{{jersey}}" data-image="{{image}}"  data-position="{{position}}" data-birthday="{{birthday}}">
+        <div class="player" data-id="{{id}}" data-firstname="{{firstname}}" data-lastname="{{lastname}}" data-jersey="{{jersey}}" data-image="{{image}}"  data-position="{{position}}" data-birthday="{{birthday}}" data-dreamteam="{{dreamteam}}">
             <div class="name label">{{firstname}} {{lastname}}</div>
             <div class="jersey label">{{jersey}}</div>
             <div class="player-pic-container"><img src="{{image}}" onerror="if (this.src != '/static/placeholder.png') this.src = '/static/placeholder.png';"
@@ -42,8 +42,12 @@
             </div>
             <div class="position label">{{position}}</div>
             <div class="btn-group">
-            <button class="addToDreamTeam">Dream Team</button>
+            
+            {{#if dreamteam}}
             <button class="btn-deleteFromDreamTeam">Delete From Dream Team</button>
+            {{else}}
+            <button class="addToDreamTeam">Add To Dream Team</button>
+            {{/if}}
             <button class="btn-stats" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-info-circle fa-2x" aria-hidden="true" ></i></button>
             
         </div>

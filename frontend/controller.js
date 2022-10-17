@@ -23,8 +23,8 @@ class Controller {
         const teamName = document.querySelector("#teamName");
         const year = document.querySelector("#year");
         const filterByBirthday = document.querySelector("#bday");
-        this.model.getPlayers(teamName.value, year.value, filterByBirthday.checked).then(player => {
-            renderPlayers(player);
+        this.model.getPlayers(teamName.value, year.value, filterByBirthday.checked).then(players => {
+            renderPlayers(players);
         });
     }
     getPlayerStats(event) {
@@ -44,8 +44,9 @@ class Controller {
             jersey: playerData.jerseynumber,
             image: playerData.image,
             position: playerData.position,
-            birthday: playerData.birthday
-        });
+            birthday: playerData.birthday,
+            dreamteam: true
+        }).then(() => this.getTeamPlayers());
         console.log(playerData);
     }
     getDreamTeam() {

@@ -42,7 +42,8 @@ def filter_by_team(teamName, data):
                 "image": f"https://nba-players.herokuapp.com/players/{player['lastName'].lower()}/{player['firstName'].lower()}",
                 "jersey": player['jersey'],
                 "position": player['pos'],
-                "birthday": player["dateOfBirthUTC"]
+                "birthday": player["dateOfBirthUTC"],
+                "dreamteam":dream_team.isInDreamTeam(player['personId'])
             }
             for player in data['league'][league] if team_id == player['teamId']
         ]

@@ -18,6 +18,11 @@ class Dream_team:
         print(self.dream_team)
         for i in range(len(self.dream_team)):
             if self.dream_team[i]['id'] == id:
-                print("deleting")
                 self.dream_team.remove(self.dream_team[i])
                 break
+
+    def isInDreamTeam(self, id):
+        for player in self.dream_team:
+            if player['id'] == id:
+                return True
+        return False

@@ -30,6 +30,8 @@ class Controller {
 
 
 
+
+
         // const playerData = document.querySelector("#results")
         // if (playerData)
         //     playerData.addEventListener('click', event => this.addToDreamTeam(event))
@@ -44,8 +46,8 @@ class Controller {
         const teamName = document.querySelector("#teamName") as HTMLInputElement
         const year = document.querySelector("#year") as HTMLInputElement
         const filterByBirthday = document.querySelector("#bday") as HTMLInputElement
-        this.model.getPlayers(teamName.value, year.value, filterByBirthday.checked).then(player => {
-            renderPlayers(player)
+        this.model.getPlayers(teamName.value, year.value, filterByBirthday.checked).then(players => {
+            renderPlayers(players)
 
 
         })
@@ -72,8 +74,9 @@ class Controller {
             jersey: playerData.jerseynumber!,
             image: playerData.image!,
             position: playerData.position!,
-            birthday: playerData.birthday!
-        })
+            birthday: playerData.birthday!,
+            dreamteam: true
+        }).then(() => this.getTeamPlayers())
         console.log(playerData)
 
     }

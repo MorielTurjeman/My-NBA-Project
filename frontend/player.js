@@ -1,6 +1,6 @@
 "use strict";
 class Player {
-    constructor(id, lastname, firstname, image, jersey, position, birthday) {
+    constructor(id, lastname, firstname, image, jersey, position, birthday, dreamteam) {
         // this.id = id
         // this.name = name
         // this.picture = picture
@@ -13,5 +13,6 @@ class Player {
         this.jersey = jersey;
         this.position = position;
         this.birthday = birthday;
+        this.dreamteam = dreamteam;
     }
 }
