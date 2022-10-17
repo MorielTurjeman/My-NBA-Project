@@ -15,7 +15,9 @@ class Dream_team:
         return self.dream_team
 
     def delete_player(self, id):
-        for i in range(len(self.dream_team), 0):
-            if self.dream_team[id] == id:
-                self.dream_team.remove[i]
+        print(self.dream_team)
+        for i in range(len(self.dream_team)):
+            if self.dream_team[i]['id'] == id:
+                print("deleting")
+                self.dream_team.remove(self.dream_team[i])
                 break

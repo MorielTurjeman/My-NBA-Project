@@ -4,10 +4,14 @@
 
 class Controller {
     model: Model;
+    //if showing dreamteam page, or showing whole team so we know what to do after deletion
+    inDreamTeamMode: boolean;
 
 
     constructor() {
         this.model = new Model()
+        this.inDreamTeamMode = false
+
         const getTeam = document.querySelector(".getTeam-btn")
         if (getTeam) {
             getTeam.addEventListener('click', (event) => this.getTeamPlayers())
@@ -17,12 +21,13 @@ class Controller {
             showDreamTeam.addEventListener('click', (event) => this.getDreamTeam())
 
         }
-        const deleteFromDreamTeam = document.querySelector(".btn-deleteFromDreamTeam")
 
 
 
         $("#results").on("click", ".addToDreamTeam", (event) => this.addToDreamTeam(event))
         $("#results").on("click", ".btn-stats", event => this.getPlayerStats(event))
+        $("#results").on("click", ".btn-deleteFromDreamTeam", event => this.deleteFromDreamTeam(event))
+
 
 
         // const playerData = document.querySelector("#results")
@@ -48,9 +53,6 @@ class Controller {
 
     getPlayerStats(event: JQuery.ClickEvent) {
         const playerData = ((event.target as HTMLElement).closest(".player") as HTMLElement).dataset
-        console.log(playerData)
-        // console.log(((event.target as HTMLElement).closest(".player") as HTMLElement))
-        // console.log(((event.target as HTMLElement).closest(".player") as HTMLElement).dataset)
         cleanModalContent()
         this.model.getPlayerStats(playerData.firstname!, playerData.lastname!).then(playerStats => {
             if (playerStats)
@@ -77,7 +79,26 @@ class Controller {
     }
 
     getDreamTeam() {
-        this.model.getDreamTeam().then(dteam => renderPlayers(dteam))
+        this.model.getDreamTeam().then(dteam => {
+            renderPlayers(dteam)
+            this.inDreamTeamMode = true
+        })
+
+
+
+    }
+
+    deleteFromDreamTeam(event: JQuery.ClickEvent) {
+        const playerData = ((event.target as HTMLElement).closest(".player") as HTMLElement).dataset
+        this.model.deleteFromDreamTeam(playerData.id!).then(playerData => {
+            if (this.inDreamTeamMode) {
+                this.getDreamTeam()
+            }
+            else {
+                this.getTeamPlayers()
+            }
+
+        })
 
     }
 

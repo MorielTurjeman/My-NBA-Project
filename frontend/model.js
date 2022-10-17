@@ -61,4 +61,19 @@ class Model {
             }
         });
     }
+    deleteFromDreamTeam(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield $.ajax({
+                type: "DELETE",
+                url: `/dreamTeam/${id}`,
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+    }
 }

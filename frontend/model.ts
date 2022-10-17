@@ -56,6 +56,23 @@ class Model {
 
     }
 
+    async deleteFromDreamTeam(id: string) {
+
+        await $.ajax({
+            type: "DELETE",
+            url: `/dreamTeam/${id}`,
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+
+        })
+
+    }
+
 
 
 
